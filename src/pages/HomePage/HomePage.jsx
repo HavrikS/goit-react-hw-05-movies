@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
-
+import styles from "./HomePage.module.css";
 import { getTrendingMovies } from '../../shared/api/movies';
 
 const HomePage = () => {
@@ -56,7 +56,7 @@ const [state, setState] = useState({
     </li>)
 
     return (
-        <div>
+        <div className={styles.wraper}>
             <h2>Trending today</h2>
             <ul>{elements}</ul>
             {loading && <p>...load movies</p>}

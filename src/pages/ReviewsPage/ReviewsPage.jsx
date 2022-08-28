@@ -8,6 +8,7 @@ const Reviews = () => {
     const [error, setError] = useState(null);
     const [items, setItem] = useState([]);
     const [reviewsItems, setReviewsItems] = useState([]);
+    const [reviewsTitle, setReviewstitle] = useState(false);
 
     const { movieId } = useParams();
 
@@ -19,6 +20,7 @@ const Reviews = () => {
                 const result = response.results;
                 console.log(result);
                 setItem([...result])
+                setReviewstitle(true)
             } catch (error) {
                 setError(error)
             }
@@ -45,7 +47,7 @@ const Reviews = () => {
 
     return (
         <div>
-            <ul>{reviewsItems}</ul>            
+            {reviewsItems.length > 0 ? <ul>{reviewsItems}</ul> : reviewsTitle && <p>We don`t have any reviews for this movie.</p>}            
             {loading && <p>...load information</p>}
             {error && <p>...Information load failed</p>}
         </div>

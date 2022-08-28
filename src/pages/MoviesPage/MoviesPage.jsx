@@ -73,11 +73,11 @@ const handleSubmit = event => {
                 <span >Search</span>
         </button>
     </form>
-    <div>
+        <div>
             <ul>{elements}</ul>
             {loading && <p>...load movies</p>}
             {error && <p>...Movies load failed</p>}                
-    </div>
+        </div>
     </>
 );
 }
