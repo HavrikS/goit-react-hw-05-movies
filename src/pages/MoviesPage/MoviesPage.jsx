@@ -70,13 +70,13 @@ const handleSubmit = event => {
         onChange={handleChange}
         />
         <button type="submit" >
-                <span >Find</span>
+                <span >Search</span>
         </button>
     </form>
     <div>
-                <ol>{elements}</ol>
+            <ul>{elements}</ul>
             {loading && <p>...load movies</p>}
-            {error && <p>...Movies load failed</p>}
+            {error && <p>...Movies load failed</p>}                
     </div>
     </>
 );

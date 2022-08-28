@@ -1,0 +1,11 @@
+.datails {
+    display: flex;    
+}
+
+.poster {
+    width: 250px;
+}
+
+.title {
+    padding-left: 10px;
+}

@@ -18,3 +18,16 @@ export const getMovieById = async(id) => {
 
     return data;
 }
+
+
+export const getCast = async(id) => {
+    const {data} = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=d320fda9f0a654278233a1e86d74d04d&language=en-US`);
+
+    return data;
+}
+
+export const getReviews = async (id) => {
+    const { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=d320fda9f0a654278233a1e86d74d04d&language=en-US&page=1`);
+
+    return data;
+}

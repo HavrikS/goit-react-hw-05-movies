@@ -57,9 +57,10 @@ const [state, setState] = useState({
 
     return (
         <div>
-            <ol>{elements}</ol>
+            <h2>Trending today</h2>
+            <ul>{elements}</ul>
             {loading && <p>...load movies</p>}
-            {error && <p>...Movies load failed</p>}
+            {error && <p>...Movies load failed</p>}            
         </div>
         
     )
