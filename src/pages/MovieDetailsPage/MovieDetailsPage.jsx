@@ -14,8 +14,10 @@ const MovieDetailsPage = () => {
 
     const { movieId } = useParams();
     const navigate = useNavigate()
+    // const location = useLocation();
+    // console.log(location)
 
-    const goBack = () => navigate (-1)
+    const goBack = () => navigate(-1)    
 
     const getClassName = ({isActive}) => {
     const className = isActive ? `${styles.link} ${styles.active}` : styles.link;

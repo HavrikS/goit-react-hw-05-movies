@@ -1,13 +1,13 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { getMoviesByName } from '../../shared/api/movies';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 // import { IoSearchOutline } from "react-icons/io5";
 
 
 
-export function MoviesPage() {
+const MoviesPage = () => {
 
     const [searchName, setSearchName] = useState('');
     const [inputName, setinputName] = useState('');
@@ -40,18 +40,23 @@ export function MoviesPage() {
         fetchMoviesByName();}
     }, [searchName]);
 
-const handleChange = () => {
-    setinputName(inputEl.current.value);    
+    const handleChange = () => {
+        setinputName(inputEl.current.value);    
 }
 
-const handleSubmit = event => {
-    event.preventDefault();
-    setSearchName(inputName);    
-    setinputName('')
+    const handleSubmit = event => {
+        event.preventDefault();
+        setSearchName(inputName);    
+        setinputName('')
     };
+
+    const location = useLocation();
+    console.log(location);
+    //const {from} = location.state
+    
     
     const elements = items.map(({ id, title, original_name }) => <li key={id}>        
-        <Link to={`/movies/${id}`}>{title || original_name}</Link>
+        <Link  to={`/movies/${id}`}>{title || original_name}</Link>
     </li>)
 
 
@@ -81,3 +86,5 @@ const handleSubmit = event => {
     </>
 );
 }
+
+export default MoviesPage;
