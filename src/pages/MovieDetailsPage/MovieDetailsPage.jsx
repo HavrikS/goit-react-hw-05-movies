@@ -1,30 +1,33 @@
 import {useState, useEffect} from "react";
-import {Link, Outlet, useParams, useNavigate } from 'react-router-dom';
+import {Link, Outlet, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { getMovieById } from '../../shared/api/movies';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
 import styles from "./MovieDetailsPage.module.css";
 
 const MovieDetailsPage = () => {
-
-
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [item, setItem] = useState({});
+    const [from, setFrom] = useState({});
 
     const { movieId } = useParams();
-    const navigate = useNavigate()
-    // const location = useLocation();
-    // console.log(location)
+    const navigate = useNavigate();
+    const location = useLocation();
+    
 
-    const goBack = () => navigate(-1)    
+    const goBack = () => navigate(from)
+
+    useEffect(() => {   
+        setFrom(location.state.from)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {          
         const fetchMoviesById = async() => {
             try {
                 setLoading(true)                
-                const response = await getMovieById(movieId)
-                console.log(response);
+                const response = await getMovieById(movieId)                
                 setItem(response)
             } catch (error) {
                 setError(error)

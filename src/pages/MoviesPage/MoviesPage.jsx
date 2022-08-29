@@ -1,7 +1,8 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { getMoviesByName } from '../../shared/api/movies';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import MovieList from '../../components/MovieList/MovieList';
 // import PropTypes from 'prop-types';
 
 
@@ -15,7 +16,7 @@ const MoviesPage = () => {
 
     const inputEl = useRef();
     const [searchParams, setSearchParams] = useSearchParams();
-    const query = searchParams.get("query")
+    const query = searchParams.get("query")    
     
     useEffect(() => {
         if (query) {
@@ -49,14 +50,9 @@ const MoviesPage = () => {
         setinputName('')
     };
 
-    const location = useLocation();
-    console.log(location);
-    //const {from} = location.state
     
     
-    const elements = items.map(({ id, title, original_name }) => <li key={id}>        
-        <Link  to={`/movies/${id}`}>{title || original_name}</Link>
-    </li>)
+    
 
 
     return ( 
@@ -78,7 +74,7 @@ const MoviesPage = () => {
         </button>
     </form>
         <div>
-            <ul>{elements}</ul>
+                <ul><MovieList items={items} /></ul>
             {loading && <p>...load movies</p>}
             {error && <p>...Movies load failed</p>}                
         </div>

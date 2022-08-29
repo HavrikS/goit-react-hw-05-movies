@@ -1,13 +1,14 @@
 import {useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
 import styles from "./HomePage.module.css";
 import { getTrendingMovies } from '../../shared/api/movies';
+import MovieList from '../../components/MovieList/MovieList';
 
 const HomePage = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [items, setItems] = useState([]);
+
 
     useEffect(()=> {
         const fetchTrendingMovies = async() => {
@@ -28,15 +29,11 @@ const HomePage = () => {
     }, []);
 
 
-    
-    const elements = items.map(({ id, title, original_name }) => <li key={id}>        
-        <Link to={`/movies/${id}`}>{title || original_name}</Link>
-    </li>)
 
     return (
         <div className={styles.wraper}>
             <h2>Trending today</h2>
-            <ul>{elements}</ul>
+            <ul><MovieList items={items} /></ul>
             {loading && <p>...load movies</p>}
             {error && <p>...Movies load failed</p>}            
         </div>

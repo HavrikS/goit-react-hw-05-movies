@@ -16,8 +16,7 @@ const Cast = () => {
             try {
                 setLoading(true)                
                 const response = await getCast(movieId);
-                const result = response.cast;
-                console.log(result);
+                const result = response.cast;                
                 setItem([...result])
             } catch (error) {
                 setError(error)
@@ -43,8 +42,6 @@ const Cast = () => {
     }
     }, [items]); 
     
-    console.log(items)
-
 
     return (
         <div>
