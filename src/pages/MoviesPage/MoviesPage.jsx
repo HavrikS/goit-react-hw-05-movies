@@ -1,33 +1,29 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { getMoviesByName } from '../../shared/api/movies';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 // import PropTypes from 'prop-types';
-// import { IoSearchOutline } from "react-icons/io5";
 
 
 
 const MoviesPage = () => {
-
-    const [searchName, setSearchName] = useState('');
+    
     const [inputName, setinputName] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [items, setItems] = useState([]);
 
     const inputEl = useRef();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get("query")
     
     useEffect(() => {
-        if (searchName === '') {
-            return
-    }else{
-        const fetchMoviesByName = async() => {
+        if (query) {
+            const fetchMoviesByName = async() => {
             try {
-                setLoading(true)  
-                console.log(searchName);
-                const response = await getMoviesByName(searchName);
-                const result = response.results;
-                console.log(result);
+                setLoading(true)                
+                const response = await getMoviesByName(query);
+                const result = response.results;                
                 setItems([...result])
             } catch (error) {
                 setError(error)
@@ -37,8 +33,11 @@ const MoviesPage = () => {
             }
         };
     
-        fetchMoviesByName();}
-    }, [searchName]);
+        fetchMoviesByName();
+        } else {
+            return
+        }
+    }, [query]);
 
     const handleChange = () => {
         setinputName(inputEl.current.value);    
@@ -46,7 +45,7 @@ const MoviesPage = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        setSearchName(inputName);    
+        setSearchParams({query: inputName})    
         setinputName('')
     };
 

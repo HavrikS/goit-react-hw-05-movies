@@ -4,51 +4,29 @@ import styles from "./HomePage.module.css";
 import { getTrendingMovies } from '../../shared/api/movies';
 
 const HomePage = () => {
-const [state, setState] = useState({
-        items: [],
-        loading: false,
-        error: null,
-    });
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [items, setItems] = useState([]);
 
     useEffect(()=> {
         const fetchTrendingMovies = async() => {
             try {
-                setState(prevState => ({
-                    ...prevState,
-                    loading: true,
-                    error: null,
-                }));
-    
+                setLoading(true);
+                setError(null)    
                 const response = await getTrendingMovies();
-                const result = response.results;                
-                setState(prevState => {
-                    return {
-                        ...prevState,
-                        items: [...prevState.items, ...result]
-                    }
-                })
+                const result = response.results;
+                setItems([...result])                
             } catch (error) {
-                setState(prevState => ({
-                    ...prevState,
-                    error,
-                }))
+                setError(error)
             }
             finally {
-                setState(prevState => {
-                    return {
-                        ...prevState,
-                        loading: false,
-                    }
-                })
+                setLoading(false)
             }
         };
-
         fetchTrendingMovies();
     }, []);
 
-    
-
-    const { items, loading, error } = state;    
 
     
     const elements = items.map(({ id, title, original_name }) => <li key={id}>        
