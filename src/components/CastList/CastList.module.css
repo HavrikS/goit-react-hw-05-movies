@@ -1,0 +1,9 @@
+.castPlug {
+    display: flex;
+    width: 138px;
+    height: 175px;
+    background-color: rgb(97, 96, 94);
+    color: white;
+    justify-content: center;
+    align-items: center;
+}

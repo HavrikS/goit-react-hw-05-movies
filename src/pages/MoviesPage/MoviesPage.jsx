@@ -3,8 +3,6 @@ import { useState, useRef, useEffect } from 'react'
 import { getMoviesByName } from '../../shared/api/movies';
 import { useSearchParams } from 'react-router-dom';
 import MovieList from '../../components/MovieList/MovieList';
-// import PropTypes from 'prop-types';
-
 
 
 const MoviesPage = () => {
@@ -50,36 +48,30 @@ const MoviesPage = () => {
         setinputName('')
     };
 
-    
-    
-    
-
-
     return ( 
     <>
-    <form  onSubmit={handleSubmit}>        
-
-        <input        
-        type="text"
-        name="searchName"
-        autoComplete="off"
-        autoFocus
-        placeholder="Search movies"
-        value={inputName}
-        ref={inputEl}
-        onChange={handleChange}
-        />
-        <button type="submit" >
-                <span >Search</span>
-        </button>
-    </form>
+        <form  onSubmit={handleSubmit}>  
+            <input        
+            type="text"
+            name="searchName"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search movies"
+            value={inputName}
+            ref={inputEl}
+            onChange={handleChange}
+            />
+            <button type="submit" >
+                    <span >Search</span>
+            </button>
+        </form>
         <div>
-                <ul><MovieList items={items} /></ul>
+            <ul><MovieList items={items} /></ul>
             {loading && <p>...load movies</p>}
             {error && <p>...Movies load failed</p>}                
         </div>
     </>
-);
+    );
 }
 
 export default MoviesPage;

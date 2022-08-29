@@ -1,7 +1,8 @@
 import styles from './MovieDetails.module.css';
+import PropTypes from 'prop-types';
 
-const MovieDetails = ({ poster_path, title, overview, vote_average, genres }) => {
-    
+const MovieDetails = ({item}) => {    
+    const { poster_path, title, overview, vote_average, genres } = item
     const userScore = Math.round(Number(vote_average) * 10);
     const movieGenres = genres.map(genre => genre.name).join(" ")
     return (
@@ -22,3 +23,18 @@ const MovieDetails = ({ poster_path, title, overview, vote_average, genres }) =>
 };
 
 export default MovieDetails;
+
+MovieDetails.propTypes = {
+    item: PropTypes.shape({
+    poster_path: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    overview: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    genres: PropTypes.arrayOf(
+                PropTypes.shape({
+                    name: PropTypes.string.isRequired,                
+            })
+        )               
+    })
+    
+};

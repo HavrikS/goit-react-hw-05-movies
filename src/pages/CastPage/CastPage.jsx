@@ -1,13 +1,14 @@
 import {useState, useEffect} from "react";
 import { getCast } from '../../shared/api/movies';
-import {useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import CastList from '../../components/CastList/CastList';
+
 
 const Cast = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [items, setItem] = useState([]);
-    const [castItems, setcastItems] = useState([]);
 
     const { movieId } = useParams();
 
@@ -29,23 +30,9 @@ const Cast = () => {
         fetchCast()
     }, [movieId]);
 
-    useEffect(() => { 
-    if (items.length !== 0){
-    const elements = items.map(({ id, profile_path, name, character }) => <li key={id}>        
-        {profile_path ? <img src={`https://www.themoviedb.org/t/p/w138_and_h175_face/${profile_path}`} alt="" /> : <div>???</div>}
-        <p>{name}</p>
-        <p>Character: {character}</p>
-    </li>)
-        setcastItems(elements)
-    } else {
-        return
-    }
-    }, [items]); 
-    
-
     return (
         <div>
-            <ul>{castItems}</ul>            
+            {items.length > 0 && <ul><CastList items={items} /></ul>}            
             {loading && <p>...load information</p>}
             {error && <p>...Information load failed</p>}
         </div>

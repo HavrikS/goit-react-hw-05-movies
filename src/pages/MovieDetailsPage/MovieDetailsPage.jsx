@@ -9,17 +9,16 @@ const MovieDetailsPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [item, setItem] = useState({});
-    const [from, setFrom] = useState({});
+    const [from, setFrom] = useState("/");
 
     const { movieId } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
     
-
     const goBack = () => navigate(from)
 
     useEffect(() => {   
-        setFrom(location.state.from)
+        setFrom(location.state?.from ?? "/")
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -40,13 +39,11 @@ const MovieDetailsPage = () => {
         fetchMoviesById();        
     }, [movieId]);
 
-    const { poster_path, title, overview, vote_average, genres} = item
-    
     
     return (
         <div>
             <button onClick={goBack}>Go back</button>
-            {Object.keys(item).length > 0 && <MovieDetails poster_path={poster_path} title={title} overview={overview} vote_average={vote_average} genres={genres} />}
+            {Object.keys(item).length > 0 && <MovieDetails item={item} />}
             {loading && <p>...load movies</p>}
             {error && <p>...Movies load failed</p>}
             <div className={styles.menu}>
